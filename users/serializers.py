@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
+from .models import PotatoCrop
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
@@ -36,3 +37,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class PotatoCropSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PotatoCrop
+        fields = ['planting_date', 'region', 'fertilizer_type', 'irrigation_used', 'notes']
