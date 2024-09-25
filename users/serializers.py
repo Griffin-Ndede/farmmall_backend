@@ -42,4 +42,4 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class PotatoCropSerializer(serializers.ModelSerializer):
     class Meta:
         model = PotatoCrop
-        fields = ['planting_date', 'region', 'fertilizer_type', 'irrigation_used', 'notes']
+        fields = ['activity', 'county', 'date',  'fertilizer_type', 'irrigation_used', 'notes']
