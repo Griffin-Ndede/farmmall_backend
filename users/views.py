@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, viewsets
 from .serializers import UserRegistrationSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import PotatoCrop
@@ -34,3 +34,7 @@ class Crop(APIView):
         crops = PotatoCrop.objects.all()
         serializer = PotatoCropSerializer(crops, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PotatoCropViewSet(viewsets.ModelViewSet):
+    queryset = PotatoCrop.objects.all()
+    serializer_class = PotatoCropSerializer
