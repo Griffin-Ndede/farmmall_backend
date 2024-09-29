@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'farmmall.wsgi.application'
+WSGI_APPLICATION = 'farmmall_backend.wsgi.application'
 
 
 # Database
