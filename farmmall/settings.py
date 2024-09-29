@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "farmmall-backend.onrender.com",
+    '127.0.0.1',
+    'localhost'
 ]
 
 
