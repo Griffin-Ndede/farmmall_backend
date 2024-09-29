@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-33suh974u6*szh&0yj@f^+j0-xj(a$^50)z5&bh#a&ksxqwwjc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "farmmall-backend.onrender.com",
+]
 
 
 # Application definition
@@ -58,6 +60,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',  # React frontend URL
+    'https://farmall.netlify.app' #deployed site
 ]
 
 ROOT_URLCONF = 'farmmall.urls'
