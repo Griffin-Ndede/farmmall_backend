@@ -25,12 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-33suh974u6*szh&0yj@f^+j0-xj(a$^50)z5&bh#a&ksxqwwjc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "farmmall-backend.onrender.com",
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    "farmmall.co.ke"
 ]
 
 
@@ -89,18 +90,18 @@ WSGI_APPLICATION = 'farmmall.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    "default": dj_database_url.parse(
-        "postgresql://farmmall_db_user:skD2c6fiFEVvW47LvA3lyONaAF3d1uDQ@dpg-crsgsud6l47c73cvuts0-a.oregon-postgres.render.com/farmmall_db"
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     "default": dj_database_url.parse(
+#         "postgresql://farmmall_db_user:skD2c6fiFEVvW47LvA3lyONaAF3d1uDQ@dpg-crsgsud6l47c73cvuts0-a.oregon-postgres.render.com/farmmall_db"
+#     )
+# }
 
 
 # Password validation
@@ -139,6 +140,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
