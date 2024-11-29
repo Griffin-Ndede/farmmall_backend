@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
     "farmmall-backend.onrender.com",
     '127.0.0.1',
     'localhost',
-    "farmmall.co.ke"
+    "api.farmmall.co.ke",
 ]
 
 
@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'farmmall.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'freshpro_farmmall',
+        'USER': 'freshpro_farmmalluser',
+        'PASSWORD': 'Farmmall.db',
+        'HOST': 'localhost',  # For cPanel, PostgreSQL is usually on localhost
+        'PORT': '5432',
     }
 }
 
