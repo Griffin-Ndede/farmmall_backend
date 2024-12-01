@@ -90,14 +90,21 @@ WSGI_APPLICATION = 'farmmall.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'freshpro_farmmall',
+#         'USER': 'freshpro_farmmalluser',
+#         'PASSWORD': 'Farmmall.db',
+#         'HOST': 'localhost',  # For cPanel, PostgreSQL is usually on localhost
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'freshpro_farmmall',
-        'USER': 'freshpro_farmmalluser',
-        'PASSWORD': 'Farmmall.db',
-        'HOST': 'localhost',  # For cPanel, PostgreSQL is usually on localhost
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # BASE_DIR points to your project directory
     }
 }
 
