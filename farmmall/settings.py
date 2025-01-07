@@ -90,30 +90,26 @@ WSGI_APPLICATION = 'farmmall.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'freshpro_farmmall',
-#         'USER': 'freshpro_farmmalluser',
-#         'PASSWORD': 'Farmmall.db',
-#         'HOST': 'localhost',  # For cPanel, PostgreSQL is usually on localhost
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'freshpro_farmmall',
+        'USER': 'freshpro_farmmalluser',
+        'PASSWORD': '@farmmalluser',
+        'HOST': 'localhost',  # Use localhost for cPanel
+        'PORT': '5432',  # Default PostgreSQL port
+    }
+}
+
+
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # BASE_DIR points to your project directory
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# DATABASES = {
-#     "default": dj_database_url.parse(
-#         "postgresql://farmmall_db_user:skD2c6fiFEVvW47LvA3lyONaAF3d1uDQ@dpg-crsgsud6l47c73cvuts0-a.oregon-postgres.render.com/farmmall_db"
-#     )
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -149,9 +145,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
