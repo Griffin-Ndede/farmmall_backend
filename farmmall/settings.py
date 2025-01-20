@@ -96,20 +96,18 @@ DATABASES = {
         'NAME': 'freshpro_farmmall',
         'USER': 'freshpro_farmmalluser',
         'PASSWORD': '@farmmalluser',
-        'HOST': 'localhost',  # Use localhost for cPanel
-        'PORT': '5432',  # Default PostgreSQL port
+        # 'HOST': '91-204-209-11',  # Use localhost for cPanel
+        # 'PORT': '5432',  # Default PostgreSQL port
     }
 }
 
 
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
