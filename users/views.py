@@ -4,8 +4,10 @@ from rest_framework import status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from .models import PotatoCrop, User
-from .serializers import UserRegistrationSerializer, PotatoCropSerializer, UserLoginSerializer
+from .serializers import UserRegistrationSerializer, PotatoCropSerializer, UserLoginSerializer, CalendarEventSerializer
 from django.contrib.auth import authenticate
+from rest_framework import status
+from .models import CalendarEvent
 
 class RegisterView(APIView):
     """
@@ -65,3 +67,18 @@ class PotatoCropViewSet(viewsets.ModelViewSet):
     """
     queryset = PotatoCrop.objects.all()
     serializer_class = PotatoCropSerializer
+
+
+
+class CalendarEventView(APIView):
+    def get(self, request):
+        events = CalendarEvent.objects.all()
+        serializer = CalendarEventSerializer(events, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CalendarEventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
