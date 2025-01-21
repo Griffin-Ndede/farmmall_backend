@@ -26,8 +26,7 @@ class PotatoCrop(models.Model):
 class CalendarEvent(models.Model):
     crop_name = models.CharField(max_length=255)
     activity = models.CharField(max_length=255)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
 
     def __str__(self):
         return f"{self.crop_name} - {self.activity}"

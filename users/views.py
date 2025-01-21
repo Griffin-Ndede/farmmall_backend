@@ -2,12 +2,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated
-from .models import PotatoCrop, User
+from .models import PotatoCrop, User, CalendarEvent
 from .serializers import UserRegistrationSerializer, PotatoCropSerializer, UserLoginSerializer, CalendarEventSerializer
 from django.contrib.auth import authenticate
-from rest_framework import status
-from .models import CalendarEvent
 
 class RegisterView(APIView):
     """
@@ -47,8 +44,6 @@ class Crop(APIView):
     """
     Handles POST and GET for PotatoCrop data.
     """
-    permission_classes = [IsAuthenticated]
-
     def post(self, request):
         serializer = PotatoCropSerializer(data=request.data)
         if serializer.is_valid():
@@ -68,9 +63,10 @@ class PotatoCropViewSet(viewsets.ModelViewSet):
     queryset = PotatoCrop.objects.all()
     serializer_class = PotatoCropSerializer
 
-
-
 class CalendarEventView(APIView):
+    """
+    Handles GET and POST for CalendarEvent data.
+    """
     def get(self, request):
         events = CalendarEvent.objects.all()
         serializer = CalendarEventSerializer(events, many=True)
