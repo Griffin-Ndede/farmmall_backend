@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
-from .models import PotatoCrop
-from .models import CalendarEvent
+from .models import PotatoCrop, Activity
+
 
 
 User = get_user_model()
@@ -36,7 +36,7 @@ class PotatoCropSerializer(serializers.ModelSerializer):
         model = PotatoCrop
         fields = ['activity', 'date', 'county', 'fertilizer_type', 'irrigation_used', 'notes']
 
-class CalendarEventSerializer(serializers.ModelSerializer):
+class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = CalendarEvent
+        model = Activity
         fields = '__all__'
