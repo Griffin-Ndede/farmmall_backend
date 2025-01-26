@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import PotatoCrop, User, Activity
-from .serializers import UserRegistrationSerializer, PotatoCropSerializer, UserLoginSerializer, ActivitySerializer
+from .models import User, Activity
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, ActivitySerializer
 from django.contrib.auth import authenticate
 import datetime
 
@@ -41,21 +41,6 @@ class LoginView(APIView):
             return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class Crop(APIView):
-    """
-    Handles POST and GET for PotatoCrop data.
-    """
-    def post(self, request):
-        serializer = PotatoCropSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, request):
-        crops = PotatoCrop.objects.all()
-        serializer = PotatoCropSerializer(crops, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ActivityView(APIView):
     def get(self, request):

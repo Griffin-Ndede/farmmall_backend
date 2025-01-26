@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
-from .models import PotatoCrop, Activity
+from .models import Activity
 
 
 
@@ -28,13 +28,6 @@ class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True, required=True)
 
-class PotatoCropSerializer(serializers.ModelSerializer):
-    """
-    Serializer for PotatoCrop model.
-    """
-    class Meta:
-        model = PotatoCrop
-        fields = ['activity', 'date', 'county', 'fertilizer_type', 'irrigation_used', 'notes']
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
