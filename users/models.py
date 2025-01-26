@@ -23,10 +23,10 @@ class PotatoCrop(models.Model):
     def __str__(self):
         return f"Potato Crop in {self.county} planted on {self.activity}"
 
-class CalendarEvent(models.Model):
-    crop_name = models.CharField(max_length=255)
-    activity = models.CharField(max_length=255)
-    start_date = models.DateField()
+class Activity(models.Model):
+    crop_name = models.CharField(max_length=100)
+    activity = models.CharField(max_length=100)
+    activity_date = models.DateField()
 
     def __str__(self):
         return f"{self.crop_name} - {self.activity}"
