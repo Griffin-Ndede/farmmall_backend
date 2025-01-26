@@ -2,9 +2,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import PotatoCrop, User, CalendarEvent
-from .serializers import UserRegistrationSerializer, PotatoCropSerializer, UserLoginSerializer, CalendarEventSerializer
+from .models import PotatoCrop, User, Activity
+from .serializers import UserRegistrationSerializer, PotatoCropSerializer, UserLoginSerializer, ActivitySerializer
 from django.contrib.auth import authenticate
+import datetime
 
 class RegisterView(APIView):
     """
@@ -56,25 +57,34 @@ class Crop(APIView):
         serializer = PotatoCropSerializer(crops, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class PotatoCropViewSet(viewsets.ModelViewSet):
-    """
-    CRUD operations for PotatoCrop using ViewSet.
-    """
-    queryset = PotatoCrop.objects.all()
-    serializer_class = PotatoCropSerializer
-
-class CalendarEventView(APIView):
-    """
-    Handles GET and POST for CalendarEvent data.
-    """
+class ActivityView(APIView):
     def get(self, request):
-        events = CalendarEvent.objects.all()
-        serializer = CalendarEventSerializer(events, many=True)
+        activities = Activity.objects.all()
+        serializer = ActivitySerializer(activities, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = CalendarEventSerializer(data=request.data)
+        serializer = ActivitySerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            activity = serializer.save()
+
+            # Projected events logic
+            projected_events = []
+            if activity.activity.lower() == "planting":
+                planting_date = activity.activity_date
+                projected_events = [
+                    Activity(
+                        crop_name=activity.crop_name,
+                        activity="Weeding",
+                        activity_date=planting_date + datetime.timedelta(weeks=3),
+                    ),
+                    Activity(
+                        crop_name=activity.crop_name,
+                        activity="Harvesting",
+                        activity_date=planting_date + datetime.timedelta(weeks=12),
+                    ),
+                ]
+                Activity.objects.bulk_create(projected_events)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
