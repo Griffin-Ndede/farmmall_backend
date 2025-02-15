@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     "api.farmmall.co.ke",
-    "app.farmmall.co.ke/"
+    "app.farmmall.co.ke"
 ]
 
 
@@ -63,6 +63,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',  # React frontend URL
     'https://farmall.netlify.app' #deployed site
+    "https://app.farmmall.co.ke/"
 ]
 
 ROOT_URLCONF = 'farmmall.urls'
