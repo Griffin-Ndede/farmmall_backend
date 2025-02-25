@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     "api.farmmall.co.ke",
-    "app.farmmall.co.ke"
+    "app.farmmall.co.ke",
 ]
 
 
@@ -52,20 +52,29 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
+
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',  # React frontend URL
     'https://farmall.netlify.app', #deployed site
-    "https://app.farmmall.co.ke/",
+    "https://app.farmmall.co.ke",
+  
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://app.farmmall.co.ke",
+    "https://api.farmmall.co.ke",
+]
+
+
 
 ROOT_URLCONF = 'farmmall.urls'
 
@@ -145,7 +154,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
