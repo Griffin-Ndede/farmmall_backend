@@ -111,6 +111,14 @@ WSGI_APPLICATION = 'farmmall.wsgi.application'
 #     }
 # }
 
+# Simple JWT Configuration
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 
 DATABASES = {
     'default': {
