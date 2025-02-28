@@ -10,16 +10,17 @@ from django.contrib.auth import authenticate
 import datetime
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def user_profile(request):
+class UserProfileView(APIView):
     """
     Retrieve logged-in user details.
     """
-    user = request.user
-    serializer = UserRegistrationSerializer(user)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    authentication_classes = []  # DRF will automatically handle JWT authentication
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        user = request.user
+        serializer = UserRegistrationSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RegisterView(APIView):
     """
