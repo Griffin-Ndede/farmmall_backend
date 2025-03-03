@@ -1,15 +1,16 @@
 from django.db import models
 from datetime import timedelta
-
-# User model
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
+#user model
 class User(AbstractUser):
     # Add any additional fields if needed
     pass
 
 # Activity model to store activities (main and projections)
 class Activity(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activities')
     crop_name = models.CharField(max_length=100)
     activity = models.CharField(max_length=100)
     activity_date = models.DateField()
@@ -31,5 +32,15 @@ class Activity(models.Model):
         harvesting_date = self.activity_date + timedelta(weeks=12)  # 12 weeks after planting
 
         # Create and save the projection activities
-        Activity.objects.create(crop_name=self.crop_name, activity="Weeding", activity_date=weeding_date)
-        Activity.objects.create(crop_name=self.crop_name, activity="Harvesting", activity_date=harvesting_date)
+        Activity.objects.create(
+            user=self.user,
+            crop_name=self.crop_name,
+            activity="Weeding",
+            activity_date=weeding_date,
+        )
+        Activity.objects.create(
+            user=self.user,
+            crop_name=self.crop_name,
+            activity="Harvesting",
+            activity_date=harvesting_date,
+        )
