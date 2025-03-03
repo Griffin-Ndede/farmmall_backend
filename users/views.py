@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User, Activity
-from .serializers import UserRegistrationSerializer, UserLoginSerializer, ActivitySerializer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, ActivitySerializer, UserProfileSerializer
 from django.contrib.auth import authenticate
 import datetime
 
@@ -14,12 +14,11 @@ class UserProfileView(APIView):
     """
     Retrieve logged-in user details.
     """
-    authentication_classes = []  # DRF will automatically handle JWT authentication
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = request.user
-        serializer = UserRegistrationSerializer(user)
+        serializer = UserProfileSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RegisterView(APIView):

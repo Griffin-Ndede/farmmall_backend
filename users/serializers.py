@@ -20,6 +20,14 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)
+    
+class UserProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer for user profile data.
+    """
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 class UserLoginSerializer(serializers.Serializer):
     """
