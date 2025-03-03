@@ -40,4 +40,5 @@ class UserLoginSerializer(serializers.Serializer):
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = '__all__'
+        fields = ['id', 'user', 'crop_name', 'activity', 'activity_date']
+        read_only_fields = ['id', 'user']  # User is automatically set in the view
