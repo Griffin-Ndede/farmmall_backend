@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User, Activity
 from .serializers import UserRegistrationSerializer, UserLoginSerializer, ActivitySerializer, UserProfileSerializer
 from django.contrib.auth import authenticate
-import datetime
+from datetime import timedelta
 
 
 class UserProfileView(APIView):
@@ -66,14 +66,11 @@ class ActivityView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        # Associate the logged-in user with the activity
-        request.data['user'] = request.user.id
         serializer = ActivitySerializer(data=request.data)
         if serializer.is_valid():
-            activity = serializer.save()
+            activity = serializer.save(user=request.user)  # Set user here
 
             # Projected events logic
-            projected_events = []
             if activity.activity.lower() == "planting":
                 planting_date = activity.activity_date
                 projected_events = [
@@ -81,13 +78,13 @@ class ActivityView(APIView):
                         user=request.user,
                         crop_name=activity.crop_name,
                         activity="Weeding",
-                        activity_date=planting_date + datetime.timedelta(weeks=3),
+                        activity_date=planting_date + timedelta(weeks=3),
                     ),
                     Activity(
                         user=request.user,
                         crop_name=activity.crop_name,
                         activity="Harvesting",
-                        activity_date=planting_date + datetime.timedelta(weeks=12),
+                        activity_date=planting_date + timedelta(weeks=12),
                     ),
                 ]
                 Activity.objects.bulk_create(projected_events)

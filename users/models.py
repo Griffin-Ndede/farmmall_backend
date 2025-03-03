@@ -10,7 +10,7 @@ class User(AbstractUser):
 
 # Activity model to store activities (main and projections)
 class Activity(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activities')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activities', null=False)
     crop_name = models.CharField(max_length=100)
     activity = models.CharField(max_length=100)
     activity_date = models.DateField()
