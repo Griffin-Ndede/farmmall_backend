@@ -57,12 +57,17 @@ class LoginView(APIView):
 
 
 class ActivityView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-        activities = Activity.objects.all()
+        # Fetch activities only for the logged-in user
+        activities = Activity.objects.filter(user=request.user)
         serializer = ActivitySerializer(activities, many=True)
         return Response(serializer.data)
 
     def post(self, request):
+        # Associate the logged-in user with the activity
+        request.data['user'] = request.user.id
         serializer = ActivitySerializer(data=request.data)
         if serializer.is_valid():
             activity = serializer.save()
@@ -73,11 +78,13 @@ class ActivityView(APIView):
                 planting_date = activity.activity_date
                 projected_events = [
                     Activity(
+                        user=request.user,
                         crop_name=activity.crop_name,
                         activity="Weeding",
                         activity_date=planting_date + datetime.timedelta(weeks=3),
                     ),
                     Activity(
+                        user=request.user,
                         crop_name=activity.crop_name,
                         activity="Harvesting",
                         activity_date=planting_date + datetime.timedelta(weeks=12),
