@@ -71,9 +71,11 @@ class ActivityView(APIView):
             activity = serializer.save(user=request.user)  # Set user here
 
             # Projected events logic
+            projected_events = []
+
             if activity.activity.lower() == "planting":
                 planting_date = activity.activity_date
-                projected_events = [
+                projected_events.extend([
                     Activity(
                         user=request.user,
                         crop_name=activity.crop_name,
@@ -86,8 +88,23 @@ class ActivityView(APIView):
                         activity="Harvesting",
                         activity_date=planting_date + timedelta(weeks=12),
                     ),
-                ]
+                ])
+
+            elif activity.activity.lower() == "weeding":
+                weeding_date = activity.activity_date
+                projected_events.append(
+                    Activity(
+                        user=request.user,
+                        crop_name=activity.crop_name,
+                        activity="Harvesting",
+                        activity_date=weeding_date + timedelta(weeks=9),
+                    )
+                )
+
+            # Only create projected events if there are any
+            if projected_events:
                 Activity.objects.bulk_create(projected_events)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

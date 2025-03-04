@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,10 +31,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "farmmall-backend.onrender.com",
-    '127.0.0.1',
-    'localhost',
     "api.farmmall.co.ke",
     "app.farmmall.co.ke",
+    "farmmall.co.ke",
 ]
 
 
@@ -62,19 +63,18 @@ MIDDLEWARE = [
 
 ]
 
+# ALLOW ORIGINS
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # React frontend URL
-    'https://farmall.netlify.app', #deployed site
+    "http://localhost:5173",
     "https://app.farmmall.co.ke",
-  
+    "https://farmmall.co.ke",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "https://farmmall.co.ke",
     "https://app.farmmall.co.ke",
     "https://api.farmmall.co.ke",
 ]
-
-
 
 ROOT_URLCONF = 'farmmall.urls'
 
@@ -111,8 +111,7 @@ WSGI_APPLICATION = 'farmmall.wsgi.application'
 #     }
 # }
 
-# Simple JWT Configuration
-from datetime import timedelta
+# JWT Authentication
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
