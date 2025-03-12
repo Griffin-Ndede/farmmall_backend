@@ -30,10 +30,10 @@ SECRET_KEY = 'django-insecure-33suh974u6*szh&0yj@f^+j0-xj(a$^50)z5&bh#a&ksxqwwjc
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "farmmall-backend.onrender.com",
     "api.farmmall.co.ke",
     "app.farmmall.co.ke",
     "farmmall.co.ke",
+    "127.0.0.1"
 ]
 
 
