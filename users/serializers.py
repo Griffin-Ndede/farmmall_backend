@@ -7,6 +7,9 @@ from .models import Activity
 
 User = get_user_model()
 
+class HomeSerializer(serializers.Serializer):
+    message = serializers.CharField()
+    
 class UserRegistrationSerializer(serializers.ModelSerializer):
     """
     Serializer for registering a new user.

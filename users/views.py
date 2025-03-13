@@ -5,10 +5,18 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User, Activity
-from .serializers import UserRegistrationSerializer, UserLoginSerializer, ActivitySerializer, UserProfileSerializer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, ActivitySerializer, UserProfileSerializer, HomeSerializer
 from django.contrib.auth import authenticate
 from datetime import timedelta
 
+
+
+# Home view
+class Home(APIView):
+    def get(self, request, *args, **kwargs):
+        data = {"message": "Welcome to the home page!"}
+        serializer = HomeSerializer(data)
+        return Response(serializer.data)
 
 class UserProfileView(APIView):
     """
